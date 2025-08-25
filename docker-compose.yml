@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  redmine:
+    image: redmine:5.1  # Redmine 최신 LTS 버전
+    container_name: redmine
+    restart: always
+    ports:
+      - "3000:3000"   # 호스트 3000 → 컨테이너 3000
+    environment:
+      REDMINE_DB_POSTGRES: db
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_PASSWORD: redminepass
+    depends_on:
+      - db
+    volumes:
+      - redmine_data:/usr/src/redmine/files  # 첨부파일 저장소
+
+  db:
+    image: postgres:14
+    container_name: redmine-db
+    restart: always
+    environment:
+      POSTGRES_DB: redmine
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: redminepass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  redmine_data:
+  postgres_data:
+
