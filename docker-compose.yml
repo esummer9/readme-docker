@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   redmine:
     image: redmine:5.1  # Redmine 최신 LTS 버전
@@ -11,11 +9,25 @@ services:
       REDMINE_DB_POSTGRES: db
       REDMINE_DB_DATABASE: redmine
       REDMINE_DB_USERNAME: redmine
-      REDMINE_DB_PASSWORD: redminepass
+      REDMINE_DB_PASSWORD: ${DB_PASSWORD}
+
+      RAILS_ENV: production
+      SECRET_KEY_BASE: "c082ddede799484a394f959b4bf7dc7d757269e4bc41480e471868156a9835e4a0b17956eaab3bc640688a60a9b3c6bb863d180836015e79d5c0ff89d253058e"
+        
+      # 메일 설정
+      # REDMINE_EMAIL: appindex@naver.com
+      # REDMINE_SMTP_HOST: smtp.naver.com
+      # REDMINE_SMTP_PORT: 465
+      # REDMINE_SMTP_USER: ${SMTP_USER}
+      # REDMINE_SMTP_PASSWORD: ${SMTP_PASSWORD}
+      # REDMINE_SMTP_STARTTLS: true
+
     depends_on:
       - db
     volumes:
-      - redmine_data:/usr/src/redmine/files  # 첨부파일 저장소
+      - ./redmine_file:/usr/src/redmine/files  # 첨부파일 저장소
+      - ./config/configuration.yml:/usr/src/redmine/config/configuration.yml
+      - ./redmine_log:/usr/src/redmine/log   # 로그 파일 저장소 추가
 
   db:
     image: postgres:14
@@ -24,11 +36,11 @@ services:
     environment:
       POSTGRES_DB: redmine
       POSTGRES_USER: redmine
-      POSTGRES_PASSWORD: redminepass
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
 
-volumes:
-  redmine_data:
-  postgres_data:
+# volumes:
+#   redmine_file:
+#   postgres_data:
 
