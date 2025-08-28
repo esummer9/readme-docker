@@ -1,0 +1,13 @@
+production:
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      address: "smtp.naver.com"
+      port: 465
+      ssl: true
+      smtp_from: "appindex@naver.com"
+      domain: "naver.com"
+      authentication: :login
+      user_name: "appindex@naver.com"
+      password: "YPG5QDJLNY1X"
+      enable_starttls_auto: true 

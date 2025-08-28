@@ -1,0 +1,8 @@
+# Ignore environment files
+.env
+backup/
+postgres-data/**
+redmine-file/
+redmine-plugins/
+redmine-themes/
+redmine-log/

@@ -1,0 +1,7 @@
+From: yourid@naver.com
+To: receiver@example.com
+Subject: curl test mail
+
+안녕하세요,
+이 메일은 curl로 네이버 SMTP를 통해 보낸 테스트 메일입니다.
+
